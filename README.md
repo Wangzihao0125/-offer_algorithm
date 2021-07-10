@@ -20,7 +20,7 @@ D: Duration持久性，即事务完成后，对数据库数据的修改会被持
 
 <Strong> 前身是StringBuffer,它的效率低，但是允许多线程执行添加或删除。如果所有字符串都在单线程中编辑，则直接使用StringBuilder.
 
-#Arrays
+# Arrays
   
 Arrays.sort(type[] a)采用了快速排序算法，效率比较高。 <stong>必须实现了Comparable接口中的compareTo方法。
   
