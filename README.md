@@ -118,15 +118,16 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   ### in mainThread
  
-  ```private Handler handler=new Handler(Looper.getMainLooper){
+  ```
+  //MainThread
   
-  public void handlerMessage(Message msg){...}```
+  private Handler handler=new Handler(Looper.getMainLooper){
   
+  public void handlerMessage(Message msg){...}
   
+  //NewThread
   
-  ### in new Thread
-  
-  ```new Thread(new Runnable(){
+  new Thread(new Runnable(){
   
   @Override
   
@@ -138,9 +139,7 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   handler.sendMessage(message);
   
-  }).start();
-  
-  ```
+  }).start();```
   
   # AsyncTask
   
