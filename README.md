@@ -115,8 +115,6 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   4. Looper ： 线程中消息队列的管家，当调用Looper.loop()后，进入无限循环，当消息队列中存在一条消息时，就取出并传递给handlerMessage()方法。 每个线程只能有一个Looper对象。
   
   过程： 主线程创建Handelr对象，并重写handleMessage()方法。当子线程需要UI操作时，创建Message对象，并通过Handler发送出去，之后这条消息被加入消息队列等待处理，Looper则一直尝试从消息队列中取出消息，最后发回handlerMessage()方法中。
-  
-  ### in mainThread
  
   ```
   //MainThread
