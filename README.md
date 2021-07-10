@@ -115,11 +115,29 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   4. Looper ： 线程中消息队列的管家，当调用Looper.loop()后，进入无限循环，当消息队列中存在一条消息时，就取出并传递给handlerMessage()方法。 每个线程只能有一个Looper对象。
   
   过程： 主线程创建Handelr对象，并重写handleMessage()方法。当子线程需要UI操作时，创建Message对象，并通过Handler发送出去，之后这条消息被加入消息队列等待处理，Looper则一直尝试从消息队列中取出消息，最后发回handlerMessage()方法中。
+  ''private Handler handler=new Handler(Looper.getMainLooper)''
   
   # AsyncTask
   
   基于异步消息处理机制。 这是一个抽象类，需要继承。
   
-  class DownloadTask extends AsyncTask<Void,Integer,Boolean>{
-  ...
-  }
+  class DownloadTask extends AsyncTask<Void,Integer,Boolean>{...}
+  
+  ### 三个泛型参数分别代表
+  
+  执行后台任务需要传递的参数，用于后台任务中使用。
+  
+  后台任务执行时，如果需要在界面上显示当前进度，作为进度单位。
+  
+  当任务执行结束后，将结果返回，作为返回值类型。
+  
+  ### 需要重写：
+  
+  onPreExecute(): 在后台任务开始前调用，用于在界面上的初始化操作，比如显示一个进度条对话框等。
+  
+  doInBackground(Params...): 该方法的所有代码都会在子线程中运行，应该在此处完成耗时任务，任务一旦完成则返回运行结果。 如果要反馈一些元素，如反馈当前任务的执行进度，可以调用publishProgress(Progress...)来完成。
+  
+  onProgressUpdate(Progress...): 当后台任务中使用了publishProgress(progress...),则很快调用这个方法，参数就是后台任务中传递过来的，在这个方法中可以进行UI操作，利用参数中的数值就可以更新界面元素。
+  
+  onPostExcute(Result): 当后台任务完成并return时，这个方法很快被调用，参数也由后台任务传递过来，在这个方法中可以利用返回的数值进行UI操作，比如说提醒任务执行的结果，以及关掉进度条对话框。
+  
