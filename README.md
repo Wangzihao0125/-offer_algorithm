@@ -103,3 +103,23 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   进程切换时消耗资源大，效率低。涉及频繁切换时线程好于进程。如果要求同时进行并且共享某些变量的并发操作，是只能用线程不能用进程的。
   
   执行过程的区别：每个进程都有一个程序运行的入口，但是线程不能独立执行。
+  
+  ## 异步消息处理机制
+  
+  1. Message ： 线程间传递的消息，可以内部携带少量信息，用于在不同线程之间交换数据 。
+  
+  2. Handler ： 用于发送和处理消息。 new Handler().sendMessage() 发送消息（子线程），handlerMessage() 处理消息更新UI（主线程）
+  
+  3. MesseageQueue ： 消息队列，用于存放所有通过Handler发送的消息，这些消息存放于队列中等待被处理。每个线程只有一个消息队列。
+  
+  4. Looper ： 线程中消息队列的管家，当调用Looper.loop()后，进入无限循环，当消息队列中存在一条消息时，就取出并传递给handlerMessage()方法。 每个线程只能有一个Looper对象。
+  
+  过程： 主线程创建Handelr对象，并重写handleMessage()方法。当子线程需要UI操作时，创建Message对象，并通过Handler发送出去，之后这条消息被加入消息队列等待处理，Looper则一直尝试从消息队列中取出消息，最后发回handlerMessage()方法中。
+  
+  # AsyncTask
+  
+  基于异步消息处理机制。 这是一个抽象类，需要继承。
+  
+  class DownloadTask extends AsyncTask<Void,Integer,Boolean>{
+  ...
+  }
