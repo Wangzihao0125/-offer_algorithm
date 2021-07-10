@@ -139,7 +139,9 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   handler.sendMessage(message);
   
-  }).start();```
+  }).start();
+  
+  ```
   
   # AsyncTask
   
