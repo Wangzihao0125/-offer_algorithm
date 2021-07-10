@@ -22,7 +22,7 @@ D: Duration持久性，即事务完成后，对数据库数据的修改会被持
 
 #Arrays
   
-Arrays.sort(type[] a)采用了快速排序算法，效率比较高
+Arrays.sort(type[] a)采用了快速排序算法，效率比较高。 <stong>必须实现了Comparable接口中的compareTo方法。
   
 Arrays.copyOf(type[] a,int length)返回复制的新数组，Arrays.copyOfRange(type[] a,int start,innt end)，start和end均表示下表，end不包含。即copy后的长度为end-start.
   
