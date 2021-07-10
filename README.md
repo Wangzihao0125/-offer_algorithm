@@ -122,6 +122,8 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   public void handlerMessage(Message msg){...}```
   
+  
+  
   ### in new Thread
   
   ```new Thread(new Runnable(){
