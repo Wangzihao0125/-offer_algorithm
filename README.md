@@ -165,3 +165,102 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   onPostExcute(Result): 当后台任务完成并return时，这个方法很快被调用，参数也由后台任务传递过来，在这个方法中可以利用返回的数值进行UI操作，比如说提醒任务执行的结果，以及关掉进度条对话框。
   
+## 服务
+  
+  需要继承Service类，并且必须重写onBind()方法。  必须在AndroidManifest.xml文件中进行注册才能生效，也证明它是四大组件之一。
+  
+  onCreate() 在服务创建的时候调用
+  
+  onStartCommand() 在每次启动服务的时候调用
+  
+  ##### 在第一次创建服务的时候，会调用onCreate()方法和onStartCommand()方法，但如果多次启动服务，就只有onStartCommand()方法得到执行。
+  
+  onDestroy() 在服务销毁的时候调用
+  
+  ```
+  \\启动服务
+  
+  Intent intent=new Intent(this, service.class);
+  
+  startService(intent);
+  
+  \\结束服务
+  
+  stopService(intent);
+  
+  ```
+  
+  活动与服务之间通过onBind()方法进行通信，创建Binder对象对Service进行管理
+  
+  ```
+  
+  \\服务
+  
+  Public class myService extends Service{
+  
+    private DownloadBinder mBbinder=new DownloadBinder();
+  
+    class DownloadBinder extends Binder{
+  
+      public void startDownload(){...}
+  
+      public int getProgress(){...}
+  
+    }
+  
+    @Override
+  
+    public IBinder onBind(Intent intent){
+  
+      return mBinder;
+  
+    }
+  
+  }
+  
+  \\活动
+  
+  private myService.DownloadBinder binder;
+  
+  privte ServiceConnection connection=new ServiceConnection(){
+  
+    @Override
+  
+    public void onServiceConnected(ComponentName name,IBinder service){
+  
+      binder=(myService.DownloadBinder)service;
+  
+      binder.startDownload();
+  
+      binder.getProgress();
+  
+    }
+  
+    @Override
+  
+    public void onServiceDisconnectd(ComponentName name){}
+  
+  }
+  
+  \\开启服务和绑定服务
+  
+  Intent intent=new Intent(this, myService.class);
+  
+  \\BIND AUTO CREATE表示绑定后自动创建活动，使myService中的onCreate()方法得到执行，但onStartCommand()不执行。
+  
+  bindService(intent,connection,BIND AUTO CREATE);
+  
+  startService(intent);
+  
+  ```
+  
+  ## 服务的生命周期
+  
+  一旦项目的任何位置调用了Context的startService()方法，则服务启动，并且回调onStartCommand()方法，如果服务没有创建过，则会先执行onCreate()方法。服务启动后会一直执行直到调用stopService()或者stopSelf()方法被调用。
+  
+  ##### 注意：虽然onStartCommand()可以执行多次，但是实际上服务只存在一个实例，无论调用多少次startService()方法，只需调用一次stopService()或者stopSelf()方法即可停止。
+  
+  另外，还可以调用Context的bindService()来获取一个服务的持久连接，这样会回调onBind()方法。如果服务未创建过，则onCreate()先于onBind()方法执行。之后，调用方就可以获取返回的IBinder对象的实例，自由地与服务通信了。只要连接没有断开，就会一直保持运行。
+  
+  之后调用stopService()或者unBindService()即可停止服务，onDestroy()方法会执行，这样服务就销毁了。如果startService()和bindService()同时执行了的话，必须同时执行stopService和unBindService()。
+  
