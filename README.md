@@ -258,7 +258,7 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   一旦项目的任何位置调用了Context的startService()方法，则服务启动，并且回调onStartCommand()方法，如果服务没有创建过，则会先执行onCreate()方法。服务启动后会一直执行直到调用stopService()或者stopSelf()方法被调用。
   
-  <font color="red">###### 注意：虽然onStartCommand()可以执行多次，但是实际上服务只存在一个实例，无论调用多少次startService()方法，只需调用一次stopService()或者stopSelf()方法即可停止。</font>
+ ######  <font color="red">注意：虽然onStartCommand()可以执行多次，但是实际上服务只存在一个实例，无论调用多少次startService()方法，只需调用一次stopService()或者stopSelf()方法即可停止。</font>
   
   另外，还可以调用Context的bindService()来获取一个服务的持久连接，这样会回调onBind()方法。如果服务未创建过，则onCreate()先于onBind()方法执行。之后，调用方就可以获取返回的IBinder对象的实例，自由地与服务通信了。只要连接没有断开，就会一直保持运行。
   
