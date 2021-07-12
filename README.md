@@ -274,9 +274,9 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   NotificationManager manager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
   
-  NotificationCompat.Builder builder=new NotificationCampat.Builder(Context).build();
+  NotificationCompat.Builder builder=new NotificationCampat.Builder(Context);
   
-  manager.notify(id,new Notification); //这里的Notification对象即是builder.
+  manager.notify(id,new Notification.build()); //这里的Notification对象即是builder.
   
   ```
   
