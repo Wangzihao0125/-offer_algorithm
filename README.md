@@ -286,3 +286,27 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   利用PendingIntent（延迟执行的Intent, 在某个合适的时机去执行某个动作）
   
+  获取实例后，根据需求选择使用getActivity()、getBroadCast()还是getService()方法，参数(Context,0,New Intent,行为常量(FLAG_NO_SHOT等等一般为0))
+  
+  ```
+  
+  Intent intent=new Intent(this, Activity.class);
+  
+  PendingIntent pi=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
+  
+  .setContentIntent(pi);
+  
+  ```
+  
+  ###设置声音
+  
+  ```
+  
+    \\设置声音
+  
+   Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+  
+  .setSound(defultSoundUri);
+  
+  ```
+  
