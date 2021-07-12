@@ -270,5 +270,19 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   首先需要一个NotificationManager对通知进行管理，可以调用Context的getSystemService()得到。
   
-  <code> NotificationManager manager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);</code>
+  ```
+  
+  NotificationManager manager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+  
+  NotificationCompat.Builder builder=new NotificationCampat.Builder(Context).build();
+  
+  manager.notify(id,new Notification); //这里的Notification对象即是builder.
+  
+  ```
+  
+  在build()方法之前可以连缀任意的设置方法来丰富这个对象。通知设置后，通过notify()函数，即可让通知显示出来。
+  
+  ### 使通知可点击
+  
+  利用PendingIntent（延迟执行的Intent, 在某个合适的时机去执行某个动作）
   
