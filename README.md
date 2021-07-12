@@ -264,3 +264,11 @@ Arrays.fill(type [],type v)将所有数据元素的值设置未v。
   
   之后调用stopService()或者unBindService()即可停止服务，onDestroy()方法会执行，这样服务就销毁了。如果startService()和bindService()同时执行了的话，必须同时执行stopService和unBindService()。
   
+  ## 使用Notification
+  
+  既可以在活动里创建，也可以在广播接收器里创建，也可以在服务里创建。
+  
+  首先需要一个NotificationManager对通知进行管理，可以调用Context的getSystemService()得到。
+  
+  <code> NotificationManager manager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);</code>
+  
